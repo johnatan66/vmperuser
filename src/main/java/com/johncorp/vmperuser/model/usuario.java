@@ -1,11 +1,17 @@
 package com.johncorp.vmperuser.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tbl_usuario")
@@ -37,11 +43,22 @@ public class usuario {
 	@Column(name="linkfoto", length = 200)
 	private String linkFoto;
 	
-	
+	// referencia para ele fazer a importação das solicitação (n solicitações), de um usuario
+	// o codigo cascade indica que se eu fizer uma determinada operação no usuario isso tambem vai ser refletir nas solicitações, ex: inseri um usuario, faço a inserção de uma nova solicitação se for o caso
+
+	@OneToMany(mappedBy="solicitante", cascade = CascadeType.ALL) //referencia de um usuario para muitas solicitações, referenciando o solicitante criado na classe Solicitação
+	@JsonIgnoreProperties("solicitante")  // pega os pedidos do usuario e ignora o usuario para nao entrar em loop infinito, trazendo os pedidos de um usuario
+	private List<Solicitacao> pedidos;
 	
 	
 	// criar get and set
 	
+	public List<Solicitacao> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Solicitacao> pedidos) {
+		this.pedidos = pedidos;
+	}
 	public int getId() {
 		return id;
 	}
