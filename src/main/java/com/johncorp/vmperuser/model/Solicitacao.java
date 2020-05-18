@@ -38,8 +38,7 @@ public class Solicitacao {
 	// caminho de volta, varias solicitações para um usuario
 	@ManyToOne
 	@JsonIgnoreProperties("pedidos") // pega o dono do pedido e ignora os demais pedidos desse usuario
-	private usuario solicitante;
-	
+	private usuario solicitante; // aqui é a relação chave estrangeira com o usuario
 	
 	public usuario getSolicitante() {
 		return solicitante;

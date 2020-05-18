@@ -48,7 +48,7 @@ public class usuario {
 
 	@OneToMany(mappedBy="solicitante", cascade = CascadeType.ALL) //referencia de um usuario para muitas solicitações, referenciando o solicitante criado na classe Solicitação
 	@JsonIgnoreProperties("solicitante")  // pega os pedidos do usuario e ignora o usuario para nao entrar em loop infinito, trazendo os pedidos de um usuario
-	private List<Solicitacao> pedidos;
+	private List<Solicitacao> pedidos; // aqui eu digo que um usuario possui N solicitações
 	
 	
 	// criar get and set

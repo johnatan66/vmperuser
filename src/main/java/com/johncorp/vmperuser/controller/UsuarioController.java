@@ -22,6 +22,7 @@ public class UsuarioController {
 		// {email = "johnatan@johnatan.com", "senha": 1234} é o que ele recebe
 		// findBy é o codigo para encontrar os campos
 		//o nome email e senha pode ter mais coisa, mas tem queser o nome dos campos que estão no usuarioDAO, do mesmo jeito que ta lá
+		
 		usuario logado = dao.findByEmailAndSenha(incompleto.getEmail(), incompleto.getSenha());
 		if(logado != null) {
 			return ResponseEntity.ok(logado);
