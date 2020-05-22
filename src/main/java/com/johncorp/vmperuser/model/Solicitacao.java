@@ -1,13 +1,16 @@
 package com.johncorp.vmperuser.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,12 +36,25 @@ public class Solicitacao {
 	@Column(name="observacoes", length=200)
 	private String observacoes;
 	
-	//um usuario realizando muitas solicitações
+	// Um usuario realizando muitas solicitações
 	// referencia que tem um solicitante em usuario
 	// caminho de volta, varias solicitações para um usuario
+	
 	@ManyToOne
 	@JsonIgnoreProperties("pedidos") // pega o dono do pedido e ignora os demais pedidos desse usuario
 	private usuario solicitante; // aqui é a relação chave estrangeira com o usuario
+	
+	
+	//relaciono a solicitação com o seu conjunto de itens
+	// Cascade, toda altercação que fizer na solicitação ele atualiza todas as relações
+	@OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("solicitacao")
+	private List<Item> itensSolicitacao;
+	
+	
+	
+	
+	
 	
 	public usuario getSolicitante() {
 		return solicitante;
@@ -63,6 +79,12 @@ public class Solicitacao {
 	}
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+	public List<Item> getItensSolicitacao() {
+		return itensSolicitacao;
+	}
+	public void setItensSolicitacao(List<Item> itensSolicitacao) {
+		this.itensSolicitacao = itensSolicitacao;
 	}
 	
 	
