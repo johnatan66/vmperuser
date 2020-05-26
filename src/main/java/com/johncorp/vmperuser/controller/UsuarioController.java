@@ -27,10 +27,19 @@ public class UsuarioController {
 		
 		usuario logado = dao.findByEmailAndSenha(incompleto.getEmail(), incompleto.getSenha());
 		if(logado != null) {
+			logado.setSenha("********");
 			return ResponseEntity.ok(logado);
 		}
 		else {
-			return ResponseEntity.notFound().build();
+			logado = dao.findByRacfAndSenha(incompleto.getRacf(), incompleto.getSenha());
+			if(logado != null) {
+				logado.setSenha("********");
+				return ResponseEntity.ok(logado);
+			}
+			else {
+				return ResponseEntity.notFound().build();
+			}
+		
 		}
 	}
 	

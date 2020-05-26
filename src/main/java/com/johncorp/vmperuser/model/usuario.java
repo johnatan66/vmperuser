@@ -43,6 +43,7 @@ public class usuario {
 	@Column(name="linkfoto", length = 200)
 	private String linkFoto;
 	
+	
 	// referencia para ele fazer a importação das solicitação (n solicitações), de um usuario
 	// o codigo cascade indica que se eu fizer uma determinada operação no usuario isso tambem vai ser refletir nas solicitações, ex: inseri um usuario, faço a inserção de uma nova solicitação se for o caso
 

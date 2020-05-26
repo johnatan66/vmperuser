@@ -40,6 +40,7 @@ public class SolicitacaoController {
 	public ResponseEntity<Solicitacao> buscarPeloId(@PathVariable int id){
 		Solicitacao solicit = sdao.findById(id).orElse(null);
 		if(solicit != null) {
+			solicit.getSolicitante().setSenha("*********");
 			return ResponseEntity.ok(solicit);
 		}
 		else {

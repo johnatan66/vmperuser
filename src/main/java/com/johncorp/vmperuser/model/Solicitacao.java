@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,6 +44,10 @@ public class Solicitacao {
 	@ManyToOne
 	@JsonIgnoreProperties("pedidos") // pega o dono do pedido e ignora os demais pedidos desse usuario
 	private usuario solicitante; // aqui é a relação chave estrangeira com o usuario
+	
+	@OneToOne
+	@JsonIgnoreProperties("pedidos")
+	private Maquina maquina;
 	
 	
 	//relaciono a solicitação com o seu conjunto de itens
