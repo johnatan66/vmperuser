@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.johncorp.vmperuser.dao.MaquinaDAO;
 import com.johncorp.vmperuser.dao.SolicitacaoDAO;
 import com.johncorp.vmperuser.model.Item;
+import com.johncorp.vmperuser.model.Maquina;
 import com.johncorp.vmperuser.model.Solicitacao;
 
 @RestController
@@ -19,10 +21,19 @@ public class SolicitacaoController {
 	
 	@Autowired //adiciona uma nova solicitação controlada pela maquina
 	SolicitacaoDAO sdao;
+	@Autowired
+	MaquinaDAO mdao;
 	
 	@PostMapping("/solicitacoes/nova")
 	public ResponseEntity<Solicitacao> adicionarSolicitacao(@RequestBody Solicitacao nova){
 		try {
+			
+			Maquina maquina = new Maquina();
+			maquina = nova.getMaquina();
+			maquina.setValor(maquina.getCalcularValor(maquina.getProcessador(), maquina.getMemoriaGB(),maquina.getCapacidadeHD(), maquina.getTransferencia()));
+			mdao.save(maquina);
+			nova.setMaquina(maquina);
+			
 			// aqui eu vinculo a solicitacao de cada item
 			for(Item it : nova.getItensSolicitacao()) {
 				it.setSolicitacao(nova);
