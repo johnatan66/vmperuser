@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,8 +44,8 @@ public class Solicitacao {
 	@JsonIgnoreProperties("pedidos") // pega o dono do pedido e ignora os demais pedidos desse usuario
 	private usuario solicitante; // aqui é a relação chave estrangeira com o usuario
 	
-	@OneToOne
-	@JsonIgnoreProperties("pedidos")
+	@ManyToOne
+	@JsonIgnoreProperties("solicitacao")
 	private Maquina maquina;
 	
 	
@@ -90,6 +89,12 @@ public class Solicitacao {
 	}
 	public void setItensSolicitacao(List<Item> itensSolicitacao) {
 		this.itensSolicitacao = itensSolicitacao;
+	}
+	public Maquina getMaquina() {
+		return maquina;
+	}
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 	
 	

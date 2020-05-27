@@ -1,10 +1,13 @@
 package com.johncorp.vmperuser.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,16 +35,21 @@ public class Maquina {
 	@Column(name = "valor", length = 15)
 	private Float valor;
 	
+
 	
 	
-	public void setCalcularValor(int processador, int memoriaGB, int capacidadeHD, int transferencia) {
+	public float getCalcularValor(int processador, int memoriaGB, int capacidadeHD, int transferencia) {
 		final float ValProcess = 1000.0f;
 		final float ValMemo = 10.0f;
 		final float ValCapa = 10.0f;
 		final float ValTrans = 15.0f;
 		
-		this.valor = processador * ValProcess + memoriaGB * ValMemo + capacidadeHD * ValCapa + transferencia * ValTrans;
+		return( processador * ValProcess + memoriaGB * ValMemo + capacidadeHD * ValCapa + transferencia * ValTrans);
 	}
+	
+	@OneToMany(mappedBy = "maquina")
+	private List<Solicitacao> solicitacao;
+
 	
 	
 
@@ -91,6 +99,16 @@ public class Maquina {
 
 	public void setValor(Float valor) {
 		this.valor = valor;
+	}
+
+	public List<Solicitacao> getSolicitacao() {
+		return solicitacao;
+	}
+
+	public void setSolicitacao(List<Solicitacao> solicitacao) {
+		this.solicitacao = solicitacao;
 	}	
+	
+	
 
 }

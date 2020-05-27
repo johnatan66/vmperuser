@@ -4,8 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.johncorp.vmperuser.model.Software;
 
-import com.johncorp.vmperuser.model.Software;
-
 public interface SoftwareDAO extends CrudRepository<Software, Integer> {
 
 	

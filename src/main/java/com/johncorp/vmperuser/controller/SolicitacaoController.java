@@ -23,6 +23,7 @@ public class SolicitacaoController {
 	@PostMapping("/solicitacoes/nova")
 	public ResponseEntity<Solicitacao> adicionarSolicitacao(@RequestBody Solicitacao nova){
 		try {
+			nova.setMaquina(nova.getMaquina);
 			// aqui eu vinculo a solicitacao de cada item
 			for(Item it : nova.getItensSolicitacao()) {
 				it.setSolicitacao(nova);
@@ -36,7 +37,7 @@ public class SolicitacaoController {
 	}
 
 }
-	@GetMapping("/solicitacao/{id}")
+	@GetMapping("/solicitacoes/{id}")
 	public ResponseEntity<Solicitacao> buscarPeloId(@PathVariable int id){
 		Solicitacao solicit = sdao.findById(id).orElse(null);
 		if(solicit != null) {
